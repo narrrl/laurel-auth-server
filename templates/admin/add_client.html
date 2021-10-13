@@ -1,0 +1,75 @@
+{% include 'admin/nav.html' %}
+<div class="card rounded-3 p-2 border-0 mt-2">
+    <div class="card-body">
+        <form action="" method="post">
+            <div class="mb-3">
+                <label for="client_name" class="form-label">Client Name</label>
+                <input type="text" class="form-control" id="client_name" name="client_name"
+                       aria-describedby="client_name_help" required>
+                <div id="client_name_help" class="form-danger"> Should be one unique lower case word.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="client_uri" class="form-label">Client URI</label>
+                <input type="url" class="form-control" id="client_uri" name="client_uri"
+                       aria-describedby="client_uri_help" required>
+                <div id="client_uri_help" class="form-danger"> Provided by client, enter here.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="scope" class="form-label">Allowed Scopes</label>
+                <input type="text" class="form-control" id="scope" name="scope" value="openid profile email"
+                       aria-describedby="scope_help"
+                       required>
+                <div id="scope_help" class="form-danger">Used for specifying what
+                    data
+                    the client can read of the user. Values must be space separated.
+                    Usually openid profile and email.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="redirect_uri" class="form-label">Redirect URIs</label>
+                <textarea class="form-control" id="redirect_uri" cols="60" rows="1" name="redirect_uri"
+                          aria-describedby="redirect_uri_help"
+                          required></textarea>
+                <div id="redirect_uri_help" class="form-danger"> Provided by the client, usually
+                    client.xyz/something/callback. Values must be separated using new line.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="grant_type" class="form-label">Allowed Grant Types</label>
+                <textarea class="form-control" id="grant_type" cols="17" rows="1" name="grant_type"
+                          aria-describedby="grant_type_help"
+                          required>authorization_code</textarea>
+                <div id="grant_type_help" class="form-danger"> Usually just 'authorization_code' when using OpenID.
+                    Other possible grant types are provided by the client or can be found online.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="response_type" class="form-label">Allowed Response Types</label>
+                <textarea class="form-control" id="response_type" cols="17" rows="1" name="response_type"
+                          aria-describedby="response_type_help"
+                          required>code</textarea>
+                <div id="response_type_help" class="form-danger"> Usually just 'code' when using OpenID. Other
+                    response types are provided by the client or can be found online. Must be new line separated.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="token_endpoint_auth_method" class="form-label">Token Endpoint Auth Method</label>
+                <select class="form-select" name="token_endpoint_auth_method" id="token_endpoint_auth_method"
+                        aria-describedby="token_endpoint_auth_method_help" required>
+                    <option selected value="client_secret_basic">client_secret_basic</option>
+                    <option value="client_secret_post">client_secret_post</option>
+                    <option value="none">none</option>
+                </select>
+                <div id="token_endpoint_auth_method_help" class="form-danger">Specify the auth method used. If you
+                    dont
+                    what to do leave it to 'client_secret_basic'
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Add</button>
+            <a class="btn btn-secondary ms-2" href="/admin/clients">Cancel</a>
+        </form>
+    </div>
+</div>
+{% include "footer.html" %}

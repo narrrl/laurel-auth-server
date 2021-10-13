@@ -1,0 +1,51 @@
+{% include 'admin/nav.html' %}
+{% if "extend" not in request.path %}
+    <a class="btn btn-secondary my-2 ms-2 btn-sm" href="/admin/users/extend">Expand</a>
+{% else %}
+    <a class="btn btn-secondary my-2 ms-2 btn-sm" href="/admin/users">Collapse</a>
+{% endif %}
+<a class="btn btn-secondary my-2 ms-1 btn-sm" href="/api/users">JSON</a>
+<table class="table table-borderless {{ 'table-sm' if "extend" in request.path else '' }}">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Matrikelnummer</th>
+        <th scope="col">E-Mail</th>
+        <th scope="col">Language</th>
+        <th scope="col">Role</th>
+        {% if "extend" in request.path %}
+            <th scope="col">Semester</th>
+            <th scope="col">Studies</th>
+            <th scope="col">Title</th>
+        {% endif %}
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users|sort(attribute='id') %}
+        <tr>
+            <th scope="row">{{ user.id }}</th>
+            <td>{{ user.name }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.matrikelnummer }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.language | upper }}</td>
+            <td>{{ user.role }}</td>
+            {% if "extend" in request.path %}
+                <td>{{ user.semester }}</td>
+                <td>{{ user.studies }}</td>
+                <td>{{ user.title }}</td>
+            {% endif %}
+            <td>
+                <form action="/admin/users/delete" method="post">
+                    <input type="hidden" name="id" value="{{ user.id }}">
+                    <button type="submit" class="btn btn-danger btn-sm badge">DELETE</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include "footer.html" %}

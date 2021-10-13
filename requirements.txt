@@ -1,0 +1,18 @@
+# OIDC provider lib
+Authlib
+
+# web (Authlib only currently works with Flask 1.0, keep an eye on it)
+Flask~=1.0
+uWSGI
+
+# ORM & DB driver
+Flask-SQLAlchemy
+psycopg2
+
+# LDAP lib
+python-ldap
+
+# utils
+python-dotenv
+python-telegram-bot
+pycryptodome

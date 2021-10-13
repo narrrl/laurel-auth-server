@@ -1,0 +1,35 @@
+{% with name="Home" %}
+    {% include "header.html" %}
+{% endwith %}
+<div class="position-absolute top-50 start-50 translate-middle">
+    <div class="card rounded-3 p-2 border-0">
+        <img src="/static/logo.svg" alt="Uni Logo" class="card-img-top " style="
+            transform: scale(0.7, 0.7);
+            -ms-transform: scale(0.7, 0.7);
+            -webkit-transform: scale(0.7, 0.7);"
+        >
+        <div class="card-body mb-4">
+            <details>
+                <summary class="card-header border-0 text-center bg-white">
+                    Logged in as <b>{{ user.name }}</b>
+                    <span class="badge bg-{{ 'danger' if user.is_admin() else 'secondary' }} ms-2">{{ user.role }}</span>
+                </summary>
+                <p class="card-text ms-5 text-muted">
+                    <b>Username</b>: {{ user.username }}<br>
+                    {% if user.matrikelnummer %}
+                        <b>Matrikelnummer</b>: {{ user.matrikelnummer }} <br>
+                    {% endif %}
+                    <b>E-Mail</b>: {{ user.email }} <br>
+                </p>
+            </details>
+        </div>
+        <div class="card-footer text-center bg-white border-0">
+            <a href="/auth/logout" class="btn btn-secondary">Logout</a>
+
+            {% if user.is_admin() %}
+                <a href="/admin" class="btn btn-danger">Admin Panel</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}

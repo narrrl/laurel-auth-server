@@ -1,0 +1,28 @@
+{% with name="Admin Panel" %}
+    {% include "header.html" %}
+{% endwith %}
+<ul class="nav nav-pills nav-fill mt-3 mb-2 mx-2">
+    <li class="nav-item">
+        <a class="nav-link {{ 'active bg-secondary text-white' if  "clients" in request.path else 'text-dark' }}"
+           href="/admin/clients">Clients</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ 'active bg-secondary text-white' if  "users" in request.path else 'text-dark' }}"
+           href="/admin/users">Users</a>
+    </li>
+</ul>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mx-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        {% if "users" in request.path %}
+            <li class="breadcrumb-item active" aria-current="page">Users</li>
+        {% elif "clients" in request.path %}
+            {% if "add" in request.path %}
+                <li class="breadcrumb-item"><a href="/admin/clients">Clients</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add</li>
+            {% else %}
+                <li class="breadcrumb-item active" aria-current="page">Clients</li>
+            {% endif %}
+        {% endif %}
+    </ol>
+</nav>

@@ -1,0 +1,54 @@
+{% include 'admin/nav.html' %}
+<a class="btn btn-success my-2 ms-2 btn-sm" href="/admin/clients/add">Add</a>
+{% if "extend" not in request.path %}
+    <a class="btn btn-secondary my-2 ms-1 btn-sm" href="/admin/clients/extend">Expand</a>
+{% else %}
+    <a class="btn btn-secondary my-2 ms-1 btn-sm" href="/admin/clients">Collapse</a>
+{% endif %}
+<a class="btn btn-secondary my-2 ms-1 btn-sm" href="/api/clients">JSON</a>
+<table class="table table-borderless table-sm">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Client ID</th>
+        <th scope="col">Client Secret</th>
+        <th scope="col">Client URI</th>
+        <th scope="col">Scope</th>
+        <th scope="col">Redirect URIs</th>
+        {% if "extend" in request.path %}
+            <th scope="col">Grant Types</th>
+            <th scope="col">Response Types</th>
+            <th scope="col">Token Endpoint Method</th>
+        {% endif %}
+        <th scope="col">Creator</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for client in clients|sort(attribute='id') %}
+        <tr>
+            <th scope="row">{{ client.id }}</th>
+            <td>{{ client.client_metadata["client_name"] }}</td>
+            <td>{{ client.client_id }}</td>
+            <td>{{ client.client_secret }}</td>
+            <td>{{ client.client_metadata["client_uri"] }}</td>
+            <td>{{ client.client_metadata["scope"] }}</td>
+            <td>{{ client.client_metadata["redirect_uris"] | join("\n")  }}</td>
+            {% if "extend" in request.path %}
+                <td>{{ client.client_metadata["grant_types"] | join("\n") }}</td>
+                <td>{{ client.client_metadata["response_types"] | join("\n") }}</td>
+                <td>{{ client.client_metadata["token_endpoint_auth_method"] }}</td>
+            {% endif %}
+            <td>{{ client.client_metadata["author_name"] }}</td>
+            <td>
+                <form action="/admin/clients/delete" method="post">
+                    <input type="hidden" name="id" value="{{ client.id }}">
+                    <button type="submit" class="btn btn-danger btn-sm badge">DELETE</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include "footer.html" %}
