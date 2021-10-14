@@ -24,7 +24,7 @@ def get_ldap_user(username: str, password: str):
 
         # do some magic
         query = {
-            key: value[0].decode('ascii') for key, value in
+            key: value[0].decode('utf-8') for key, value in
             con.search_s(f"ou=people,dc=uni-freiburg,dc=de", ldap.SCOPE_SUBTREE, f"(uid={username})")
             [0][1].items()
         }
