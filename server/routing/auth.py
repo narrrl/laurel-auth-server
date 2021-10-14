@@ -49,6 +49,7 @@ def login():
     if not data:
         data = request.form
 
+
     if "username" not in data or "password" not in data:
         return _error("Missing credentials")
 
@@ -83,4 +84,7 @@ def logout():
     if User.session_or_none():
         del session['id']
 
-    return "logout successful.", 200
+    if "redirect" in request.args.keys():
+        return redirect(request.args['redirect'])
+
+    return redirect('/auth/login')
