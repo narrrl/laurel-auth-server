@@ -34,7 +34,7 @@ def get_ldap_user(username: str, password: str):
         # try parsing the error for forwarding it to login screen
         try:
             err = ast.literal_eval(str(e))
-        except ValueError:
+        except (ValueError, SyntaxError):
             return None, "Unknown error: " + str(e)
         return None, err["desc"] if "desc" in err else str(err)
     finally:
