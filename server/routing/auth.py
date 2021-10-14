@@ -83,7 +83,4 @@ def logout():
     if User.session_or_none():
         del session['id']
 
-    if "redirect" in request.args.keys():
-        return redirect(request.args['redirect'])
-
-    return redirect('/auth/login')
+    return "logout successful.", 200
