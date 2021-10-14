@@ -49,7 +49,7 @@ def login():
     if not data:
         data = request.form
 
-    if not data['username'] or not data['password']:
+    if "username" not in data or "password" not in data:
         return _error("Missing credentials")
 
     username = data["username"].strip()
