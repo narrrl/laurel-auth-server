@@ -23,7 +23,7 @@ def users():
 @api_bp.route('/admins', methods=["GET"])
 @admin_route
 def admins():
-    return jsonify({user.username: user.to_dict() for user in User.query.many() if user.is_admin()})
+    return jsonify({user.username: user.to_dict() for user in User.query.many(role="admin")})
 
 
 @api_bp.route('/user/<username>', methods=["GET", "POST"])
