@@ -22,7 +22,7 @@ def create_app():
 
     app.config.update(os.environ)
     # some dynamic settings
-    app.config["SECRET_KEY"] = gen_salt(32)
+    app.config["SECRET_KEY"] = Env.get("ADMIN_KEY")
     app.config["SESSION_PERMANENT"] = True
     app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=Env.get_int("SESSION_LIFETIME"))
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
