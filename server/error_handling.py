@@ -3,6 +3,7 @@ import traceback
 from authlib.integrations.base_client import MismatchingStateError
 from flask import session
 from telegram import Bot
+from werkzeug.exceptions import NotFound
 from werkzeug.utils import redirect
 
 from server.env import Env
@@ -10,6 +11,10 @@ from server.user import UnauthorizedError
 
 
 def error_handling(app):
+    @app.errorhandler(NotFound)
+    def all_exception_handler(_):
+        return "this route does not exist", 404
+
     @app.errorhandler(MismatchingStateError)
     def state_error(_):
         # this happens when a user tries authorizing a client with another account
