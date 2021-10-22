@@ -1,4 +1,5 @@
 from flask import Blueprint, request, render_template, session, redirect, jsonify
+from sqlalchemy.exc import IntegrityError
 
 from server.database import database
 from server.ldap import get_ldap_user
@@ -49,7 +50,6 @@ def login():
     if not data:
         data = request.form
 
-
     if "username" not in data or "password" not in data:
         return _error("Missing credentials")
 
@@ -67,8 +67,12 @@ def login():
 
     # add user to database if not exist or update if necessary
     if user is None:
-        with database as db:
-            db += ldap_user
+        try:
+            with database as db:
+                db += ldap_user
+        except IntegrityError:
+            pass
+
         user = ldap_user
     elif user != ldap_user:
         user.update(ldap_user)

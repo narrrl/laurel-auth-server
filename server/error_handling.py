@@ -12,8 +12,8 @@ from server.user import UnauthorizedError
 
 def error_handling(app):
     @app.errorhandler(NotFound)
-    def all_exception_handler(_):
-        return "this route does not exist", 404
+    def not_found(_):
+        return "route does not exist", 404
 
     @app.errorhandler(MismatchingStateError)
     def state_error(_):
