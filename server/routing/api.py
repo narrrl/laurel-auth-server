@@ -31,5 +31,7 @@ def admins():
 def user(username):
     user = User.query.one(username=username)
     if not user:
-        return "user not found", 404
+        user = User.query.one(matrikelnummer=id)
+        if not user:
+            return "user not found", 404
     return jsonify(user.to_dict())
