@@ -71,6 +71,11 @@ def generate_user_info(user, scope):
         info['name'] = user.name
         info['role'] = user.role
 
+    if 'studies' in scope:
+        info['studies'] = user.studies
+    if 'language' in scope:
+        info['language'] = user.language
+
     return UserInfo(**info)
 
 
