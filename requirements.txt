@@ -1,5 +1,5 @@
 # OIDC provider lib
-Authlib
+Authlib~=0.15.5
 
 # web (Authlib only currently works with Flask 1.0, keep an eye on it)
 Flask~=1.0
