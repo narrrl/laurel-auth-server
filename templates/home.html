@@ -22,11 +22,11 @@
                     <b>E-Mail</b>: {{ user.email }} <br>
                 </p>
             </details>
-            <details open>
+            <details>
                 <summary class="card-header border-0 text-center bg-white">
                     Open QR code
                 </summary>
-                <div>{{ qr.svg_inline(scale=5) | safe }}</div>
+                <div class="text-center">{{ qr.svg_inline(scale=5) | safe }}</div>
             </details>
         </div>
         <div class="card-footer text-center bg-white border-0">
