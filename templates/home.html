@@ -11,12 +11,6 @@
         <div class="card-body mb-4">
             <details open>
                 <summary class="card-header border-0 text-center bg-white">
-                    Open QR code
-                </summary>
-                <div>{{ qr.svg_inline(scale=5) | safe }}</div>
-            </details>
-            <details open>
-                <summary class="card-header border-0 text-center bg-white">
                     Logged in as <b>{{ user.name }}</b>
                     <span class="badge bg-{{ 'danger' if user.is_admin() else 'secondary' }} ms-2">{{ user.role }}</span>
                 </summary>
@@ -27,6 +21,12 @@
                     {% endif %}
                     <b>E-Mail</b>: {{ user.email }} <br>
                 </p>
+            </details>
+            <details open>
+                <summary class="card-header border-0 text-center bg-white">
+                    Open QR code
+                </summary>
+                <div>{{ qr.svg_inline(scale=5) | safe }}</div>
             </details>
         </div>
         <div class="card-footer text-center bg-white border-0">
