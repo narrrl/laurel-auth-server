@@ -6,7 +6,7 @@ Flask~=1.0
 uWSGI
 
 # ORM & DB driver
-Flask-SQLAlchemy
+flask-sqlalchemy==2.5.1
 psycopg2
 
 # LDAP lib
