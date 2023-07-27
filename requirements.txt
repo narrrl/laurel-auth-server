@@ -16,3 +16,5 @@ python-ldap
 python-dotenv
 python-telegram-bot
 pycryptodome
+segno
+cryptography

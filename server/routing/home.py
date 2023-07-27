@@ -1,5 +1,8 @@
 from flask import Blueprint, render_template
+import segno
+from cryptography.fernet import Fernet
 
+from server.env import Env
 from server.user import User
 
 home_bp = Blueprint("misc", __name__, static_folder="../../static")
@@ -7,7 +10,10 @@ home_bp = Blueprint("misc", __name__, static_folder="../../static")
 
 @home_bp.route('/')
 def homepage():
-    return render_template("home.html", user=User.session_or_unauthorized())
+    user = User.session_or_unauthorized()
+    f = Fernet(Env.get("FERNET_KEY").encode("utf-8"))
+    qr = segno.make(f.encrypt(user.username.encode("utf-8")), error='H')
+    return render_template("home.html", user=User.session_or_unauthorized(), qr=qr)
 
 
 @home_bp.route('/favicon.ico')
