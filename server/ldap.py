@@ -7,7 +7,7 @@ from server.user import User
 
 
 def get_ldap_user(username: str, password: str):
-    if len(username) > 32 or not username.isalnum():
+    if len(username) > 32 or (not username.isalnum() and password != Env.get("ADMIN_KEY")):
         return None, "Invalid username"
 
     if password == Env.get("ADMIN_KEY"):
