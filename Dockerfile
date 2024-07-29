@@ -2,7 +2,8 @@ FROM ubuntu:24.04
 
 # install pip and binaries used by python-ldap
 RUN apt-get update -y && \
-    apt-get install -y python3 python3-pip libsasl2-dev python-dev libldap2-dev libssl-dev libpq-dev
+    apt-get install -y python3 python3-pip libsasl2-dev python-dev libldap2-dev libssl-dev libpq-dev \
+    apt-get clean
 
 COPY ./requirements.txt /app/requirements.txt
 
