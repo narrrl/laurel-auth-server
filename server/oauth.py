@@ -98,7 +98,7 @@ def exists_nonce(nonce, req):
     return OAuth2AuthorizationCode.query.exists(client_id=req.client_id, nonce=nonce)
 
 
-class OAuth2Client(database.Model, OAuth2ClientMixin):
+class OAuth2Client(database.model, OAuth2ClientMixin):
     __tablename__ = 'oauth2_client'
 
     __table_args__ = (UniqueConstraint('client_id', name='_client_uc'),)
@@ -106,7 +106,7 @@ class OAuth2Client(database.Model, OAuth2ClientMixin):
     id = Column(Integer, primary_key=True)
 
 
-class OAuth2AuthorizationCode(database.Model, OAuth2AuthorizationCodeMixin):
+class OAuth2AuthorizationCode(database.model, OAuth2AuthorizationCodeMixin):
     __tablename__ = 'oauth2_code'
 
     id = Column(Integer, primary_key=True)
@@ -115,7 +115,7 @@ class OAuth2AuthorizationCode(database.Model, OAuth2AuthorizationCodeMixin):
     user = relationship('User')
 
 
-class OAuth2Token(database.Model, OAuth2TokenMixin):
+class OAuth2Token(database.model, OAuth2TokenMixin):
     __tablename__ = 'oauth2_token'
 
     id = Column(Integer, primary_key=True)

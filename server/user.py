@@ -5,7 +5,7 @@ from server.env import Env
 from server.database import database
 
 
-class User(database.Model):
+class User(database.model):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)

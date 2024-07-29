@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 # install pip and binaries used by python-ldap
 RUN apt-get update -y && \

@@ -1,8 +1,8 @@
-from flask_sqlalchemy import Model, SQLAlchemy, BaseQuery
+from flask_sqlalchemy import model, SQLAlchemy, query
 from sqlalchemy.orm import DeclarativeMeta
 
 
-class BaseQueryExtension(BaseQuery):
+class BaseQueryExtension(query.Query):
     """
     some extensions to flask sql alchemy
     """
@@ -32,7 +32,7 @@ class BaseQueryExtension(BaseQuery):
         self.filter_by(**kwargs).delete()
 
 
-class BaseModel(Model):
+class BaseModel(model.Model):
     """
     extensions to all models
     """
@@ -52,11 +52,11 @@ class Database:
     wraps sql alchemy
     """
     sql_alchemy: SQLAlchemy
-    Model: DeclarativeMeta
+    model: DeclarativeMeta
 
     def __init__(self):
         self.sql_alchemy: SQLAlchemy = SQLAlchemy(query_class=BaseQueryExtension, model_class=BaseModel)
-        self.Model = self.sql_alchemy.Model
+        self.model = self.sql_alchemy.Model
 
     def __iadd__(self, other):
         self.sql_alchemy.session.add(other)
