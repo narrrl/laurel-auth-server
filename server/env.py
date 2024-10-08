@@ -15,14 +15,16 @@ class Env:
             os.environ["PRIVATE_KEY"] = priv
             os.environ["PUBLIC_KEY"] = pub
             with open(".env", "a") as env:
-                env.writelines([f"PRIVATE_KEY=\"{priv}\"", "\n", f"PUBLIC_KEY=\"{pub}\""])
+                env.writelines(
+                    [f"PRIVATE_KEY=\"{priv}\"", "\n", f"PUBLIC_KEY=\"{pub}\""])
 
     @staticmethod
     def get(key: str, default=None, required: bool = True) -> str:
         val = os.getenv(key, default)
         if not val and required:
-            raise EnvironmentError(f"could not find required environment variable {key}")
-        return val
+            raise EnvironmentError(
+                f"could not find required environment variable {key}")
+        return str(val)
 
     @staticmethod
     def get_bool(key: str, required: bool = True) -> bool:
@@ -37,7 +39,8 @@ class Env:
 
     @staticmethod
     def get_admins() -> list:
-        return [admin.strip().lower() for admin in Env.get("ADMINS").split(",")]
+        return [admin.strip().lower() 
+                for admin in Env.get("ADMINS").split(",")]
 
     @staticmethod
     def get_openid_config():

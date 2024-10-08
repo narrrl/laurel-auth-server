@@ -1,15 +1,20 @@
 FROM ubuntu:24.04
 
 # install pip and binaries used by python-ldap
-RUN apt-get update -y && \
-    apt-get install -y python3 python3-pip libsasl2-dev python-dev libldap2-dev libssl-dev libpq-dev \
-    apt-get clean
+RUN apt update -y && apt install -y software-properties-common && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt update -y && \
+    apt install -y python3-full python3.12-full libsasl2-dev python3-pip python3.12-dev libldap2-dev libssl-dev libpq-dev && \
+    apt clean
 
 COPY ./requirements.txt /app/requirements.txt
 
+
 WORKDIR /app
 
-RUN pip3 install -r requirements.txt
+RUN python3.12 -m venv .venv && \
+    . .venv/bin/activate && \
+    pip3 install -r requirements.txt
 
 COPY . /app
 

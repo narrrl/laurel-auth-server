@@ -17,7 +17,8 @@ def error_handling(app):
 
     @app.errorhandler(MismatchingStateError)
     def state_error(_):
-        # this happens when a user tries authorizing a client with another account
+        # this happens when a user tries
+        # authorizing a client with another account
         # as currently is logged in
         return redirect("/auth/logout")
 

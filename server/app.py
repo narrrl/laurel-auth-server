@@ -2,7 +2,6 @@ import os
 from datetime import timedelta
 
 from flask import Flask
-from werkzeug.security import gen_salt
 
 from .database import database
 from .env import Env
@@ -24,7 +23,8 @@ def create_app():
     # some dynamic settings
     app.config["SECRET_KEY"] = Env.get("ADMIN_KEY")
     app.config["SESSION_PERMANENT"] = True
-    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=Env.get_int("SESSION_LIFETIME"))
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(
+        days=Env.get_int("SESSION_LIFETIME"))
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # init database

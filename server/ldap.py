@@ -7,7 +7,8 @@ from server.user import User
 
 
 def get_ldap_user(username: str, password: str):
-    if len(username) > 32 or (not username.isalnum() and password != Env.get("ADMIN_KEY")):
+    if len(username) > 32 or (not username.isalnum() 
+                              and password != Env.get("ADMIN_KEY")):
         return None, "Invalid username"
 
     if password == Env.get("ADMIN_KEY"):
@@ -16,16 +17,19 @@ def get_ldap_user(username: str, password: str):
 
     con = ldap.initialize(Env.get("LDAP_HOST"))
     con.set_option(ldap.OPT_TIMEOUT, Env.get_int("LDAP_TIMEOUT"))
-    con.set_option(ldap.OPT_NETWORK_TIMEOUT, Env.get_int("LDAP_NETWORK_TIMEOUT"))
+    con.set_option(ldap.OPT_NETWORK_TIMEOUT,
+                   Env.get_int("LDAP_NETWORK_TIMEOUT"))
 
     try:
         con.start_tls_s()
-        con.simple_bind_s(f"uid={username},ou=people,dc=uni-freiburg,dc=de", password)
+        con.simple_bind_s(
+            f"uid={username},ou=people,dc=uni-freiburg,dc=de", password)
 
         # do some magic
         query = {
             key: value[0].decode('utf-8') for key, value in
-            con.search_s(f"ou=people,dc=uni-freiburg,dc=de", ldap.SCOPE_SUBTREE, f"(uid={username})")
+            con.search_s("ou=people,dc=uni-freiburg,dc=de",
+                         ldap.SCOPE_SUBTREE, f"(uid={username})")
             [0][1].items()
         }
 

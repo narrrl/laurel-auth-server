@@ -12,7 +12,8 @@ from authlib.integrations.flask_oauth2 import (
 from authlib.integrations.sqla_oauth2 import (
     create_query_client_func,
     create_save_token_func,
-    create_bearer_token_validator, OAuth2ClientMixin, OAuth2AuthorizationCodeMixin, OAuth2TokenMixin,
+    create_bearer_token_validator, OAuth2ClientMixin,
+    OAuth2AuthorizationCodeMixin, OAuth2TokenMixin,
 )
 from authlib.oauth2.rfc6749.grants import (
     AuthorizationCodeGrant as _AuthorizationCodeGrant,
@@ -95,7 +96,8 @@ def create_authorization_code(client, grant_user, request):
 
 
 def exists_nonce(nonce, req):
-    return OAuth2AuthorizationCode.query.exists(client_id=req.client_id, nonce=nonce)
+    return OAuth2AuthorizationCode.query.exists(client_id=req.client_id,
+                                                nonce=nonce)
 
 
 class OAuth2Client(database.model, OAuth2ClientMixin):

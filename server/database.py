@@ -55,7 +55,8 @@ class Database:
     model: DeclarativeMeta
 
     def __init__(self):
-        self.sql_alchemy: SQLAlchemy = SQLAlchemy(query_class=BaseQueryExtension, model_class=BaseModel)
+        self.sql_alchemy: SQLAlchemy = SQLAlchemy(
+            query_class=BaseQueryExtension, model_class=BaseModel)
         self.model = self.sql_alchemy.Model
 
     def __iadd__(self, other):
