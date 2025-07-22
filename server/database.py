@@ -1,8 +1,9 @@
-from flask_sqlalchemy import Model, SQLAlchemy, BaseQuery
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeMeta
 
+db = SQLAlchemy()
 
-class BaseQueryExtension(BaseQuery):
+class BaseQueryExtension(db.Query):
     """
     some extensions to flask sql alchemy
     """
@@ -32,10 +33,13 @@ class BaseQueryExtension(BaseQuery):
         self.filter_by(**kwargs).delete()
 
 
-class BaseModel(Model):
+class BaseModel(db.Model):
     """
     extensions to all models
     """
+
+    __abstract__ = True
+    __allow_unmapped__ = True
 
     # prevents "unresolved reference" warnings
     query: BaseQueryExtension
@@ -55,7 +59,7 @@ class Database:
     Model: DeclarativeMeta
 
     def __init__(self):
-        self.sql_alchemy: SQLAlchemy = SQLAlchemy(query_class=BaseQueryExtension, model_class=BaseModel)
+        self.sql_alchemy: SQLAlchemy = db
         self.Model = self.sql_alchemy.Model
 
     def __iadd__(self, other):

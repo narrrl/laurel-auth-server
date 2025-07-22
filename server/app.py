@@ -28,11 +28,9 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # init database
-    @app.before_first_request
-    def create_tables():
-        database.alchemy.create_all()
-
     database.alchemy.init_app(app)
+    with app.app_context():
+        database.alchemy.create_all()
 
     # setup oauth
     config_oauth(app)
